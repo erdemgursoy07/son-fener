@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Son Fener</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0B0D10">
+<meta name="description" content="Karanlık bir ormanda, sönmekte olan bir fenerle yolunu bulmaya çalıştığın atmosferik platform oyunu.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Son Fener">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
@@ -75,7 +84,7 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
   <p class="help keys"><kbd>←</kbd> <kbd>→</kbd> yürü, <kbd>Boşluk</kbd> zıpla, <kbd>X</kbd> feneri parlat, <kbd>C</kbd> ya da <kbd>Shift</kbd> atıl, <kbd>Esc</kbd> duraklat, <kbd>M</kbd> sesi kapat. Oyun kolu da çalışır. Fenerin yağı yavaşça tükenir; korları topla, taş sunaklarda dinlen. Sürünenlerin tepesine basabilirsin, tavandan sarkanlara asla. Soluk hayaletleri yalnızca ışık dağıtır. Saklı mavi ruhları bulursan sonu değişir.</p>
 </main>
 <script>
-const T=32,VW=800,VH=480,ROWS=15;
+const T=32,VH=480,ROWS=15;let VW=800,padL=0,padR=0;
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 let lowQ=false;
 function resize(){const d=lowQ?1:Math.min(window.devicePixelRatio||1,touchy?1.75:2);cv.width=Math.round(VW*d);cv.height=Math.round(VH*d);ctx.setTransform(d,0,0,d,0,0);}
@@ -289,8 +298,10 @@ const sfx={jump:()=>noise(.12,.15,900),land:()=>noise(.08,.12,300),ember:()=>{to
 let state='menu',mode='story',fullRun=false,lvl=0,L=null,P=null,cam=0,oil=100,deaths=0,levelDeaths=0,frame=0,parts=[],coyote=0,buffer=0,timer=0,flick=0;
 let flare=0,flash=0,boltT=300,shake=0,runT=0,noteA=0,noteText='',chaser=null,newRec=false,trueEnd=false,up={},choices=[],sel=0,soulsGot=0,introT=0,windF=0,dawnF=0,trail=[];
 let menuSel=0,pendingNext=0,lastDist=0,overWon=false,toasts=[],ghosts=[],fade=0,prologueT=0,beatT=0,beatN=0;
-const vig=document.createElement('canvas');vig.width=VW;vig.height=VH;
-{const v=vig.getContext('2d'),g=v.createRadialGradient(VW/2,VH/2,VH*.35,VW/2,VH/2,VH*.95);g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.6)');v.fillStyle=g;v.fillRect(0,0,VW,VH);}
+const vig=document.createElement('canvas');
+function makeVig(){vig.width=VW;vig.height=VH;const v=vig.getContext('2d'),g=v.createRadialGradient(VW/2,VH/2,VH*.35,VW/2,VH/2,Math.max(VH*.95,VW*.6));g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.6)');v.fillStyle=g;v.fillRect(0,0,VW,VH);}
+makeVig();
+function setVW(n){if(n===VW)return;VW=n;dark.width=VW;dark.height=VH;makeVig();resize();}
 const grainC=document.createElement('canvas');grainC.width=128;grainC.height=128;
 {const gx=grainC.getContext('2d');for(let i=0;i<2200;i++){const v=Math.random()*255|0;gx.fillStyle=`rgba(${v},${v},${v},${(Math.random()*.5).toFixed(2)})`;gx.fillRect(Math.random()*128|0,Math.random()*128|0,1,1);}}
 let grainPat=null;
@@ -320,7 +331,8 @@ function dailyBest(){return save.daily&&save.daily.date===todayKey()?save.daily.
 function toMenu(label){state='menu';timer=6;const i=menuDef().items.findIndex(x=>x[0].startsWith(label));menuSel=i<0?0:i;}
 const canVib=touchy&&typeof navigator!=='undefined'&&typeof navigator.vibrate==='function';
 function buzz(ms){if(!save.vib||!canVib)return;try{navigator.vibrate(ms);}catch(e){}}
-const fsOk=!!(document.fullscreenEnabled||document.webkitFullscreenEnabled);
+const standalone=(()=>{try{return matchMedia('(display-mode: fullscreen)').matches||matchMedia('(display-mode: standalone)').matches||(typeof navigator!=='undefined'&&navigator.standalone===true);}catch(e){return false;}})();
+const fsOk=!standalone&&!!(document.fullscreenEnabled||document.webkitFullscreenEnabled);
 function isFS(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
 function toggleFS(){try{if(isFS()){const x=document.exitFullscreen||document.webkitExitFullscreen;if(x){const p=x.call(document);if(p&&p.catch)p.catch(()=>{});}}
   else{const el=document.getElementById('shell'),r=el&&(el.requestFullscreen||el.webkitRequestFullscreen);
@@ -331,9 +343,10 @@ function openSettings(from){settingsFrom=from;state='settings';menuSel=0;timer=6
 function settingsBack(){if(settingsFrom==='menu')toMenu('Ayarlar');else{state='pause';menuSel=3;timer=6;}}
 function unlock(id){if(!ACH[id]||save.ach[id])return;save.ach[id]=1;persist();toasts.push({id,life:220});sfx.pick();}
 
+function camTarget(){const w=L.w*T;if(w<=VW)return (w-VW)/2;return Math.max(0,Math.min(P.x-VW*.4,w-VW));}
 function setupLevel(){L.cps[0].on=true;L.cpi=0;boltT=240;flash=0;noteA=0;introT=200;levelDeaths=0;fade=1;ghosts=[];windF=0;dawnF=0;trail=[];respawn();}
 function respawn(){const c=L.cps[L.cpi];P={x:c.x*T+20,y:13*T-30,w:18,h:30,vx:0,vy:0,on:true,face:1,sq:1,sway:0,inv:0,canDJ:true,dash:0,dashCd:0,canDash:true};oil=100;
-  coyote=0;buffer=0;cam=Math.max(0,Math.min(P.x-VW*.4,L.w*T-VW));
+  coyote=0;buffer=0;cam=camTarget();
   for(const k in L.cr){L.cr[k].t=0;L.cr[k].gone=0;}for(const s of L.spiders){s.st='hang';s.y=s.top;s.vy=0;s.cool=40;}
   for(const e of L.crawlers){e.fear=0;if(!e.dead)e.x=Math.max(e.min,Math.min(e.max,e.sx));}
   flare=0;chaser=L.chase?{x:c.x*T-320,go:false}:null;
@@ -422,7 +435,7 @@ function setDir(d){const l=d<0,r=d>0;if(l!==kb.left)press('left',l);if(r!==kb.ri
 function stickMove(e){let dx=e.clientX-sox;const max=bsPx*.55;if(dx>max){sox=e.clientX-max;dx=max;}else if(dx<-max){sox=e.clientX+max;dx=-max;}
   placeBase(sox,soy,true);if(sknob)sknob.style.transform=`translateX(${dx}px)`;const dz=bsPx*.16;setDir(dx>dz?1:dx<-dz?-1:0);}
 function stickEnd(e){if(e&&e.pointerId!==stickId)return;stickId=null;setDir(0);if(sknob)sknob.style.transform='translateX(0px)';placeBase(baseDef.x,baseDef.y,false);}
-if(stick){stick.addEventListener('pointerdown',e=>{e.preventDefault();if(stickId!==null)return;stickId=e.pointerId;try{stick.setPointerCapture(e.pointerId);}catch(_){}sox=e.clientX;soy=e.clientY;startDrone();stickMove(e);});
+if(stick){stick.addEventListener('pointerdown',e=>{e.preventDefault();if(stickId!==null)return;stickId=e.pointerId;try{stick.setPointerCapture(e.pointerId);}catch(_){}sox=e.clientX;soy=e.clientY;startDrone();lockLand();stickMove(e);});
   stick.addEventListener('pointermove',e=>{if(e.pointerId===stickId){e.preventDefault();stickMove(e);}});
   ['pointerup','pointercancel','lostpointercapture'].forEach(n=>stick.addEventListener(n,stickEnd));}
 document.querySelectorAll('#ctl .b').forEach(b=>{const k=b.dataset.k;
@@ -436,22 +449,35 @@ function insets(){const p=document.getElementById('probe');if(!p||typeof getComp
 function layout(){
   if(!touchy||!shell)return;
   const W=window.innerWidth||800,H=window.innerHeight||480,land=W>H,i=insets();let cw,ch,cx,cy;
-  if(land){const ah=H-i.t-i.b,aw=W-i.l-i.r;ch=ah;cw=ch*5/3;if(cw>aw){cw=aw;ch=cw*.6;}cx=i.l+(aw-cw)/2;cy=i.t+(ah-ch)/2;}
-  else{cw=W-i.l-i.r;ch=cw*.6;cx=i.l;cy=i.t+Math.max(0,Math.min(40,(H-i.t-i.b-ch)*.08));}
+  if(land){const want=VH*W/H;setVW(Math.round(Math.min(1120,Math.max(800,want))));
+    if(want>=800&&want<=1120){cw=W;ch=H;}else{cw=W;ch=W*VH/VW;if(ch>H){ch=H;cw=H*VW/VH;}}cx=(W-cw)/2;cy=(H-ch)/2;
+    padL=Math.max(0,i.l-cx)*VW/cw;padR=Math.max(0,i.r-cx)*VW/cw;}
+  else{setVW(800);padL=0;padR=0;cw=W-i.l-i.r;ch=cw*.6;cx=i.l;cy=i.t+Math.max(0,Math.min(40,(H-i.t-i.b-ch)*.08));}
   cv.style.left=cx+'px';cv.style.top=cy+'px';cv.style.width=cw+'px';cv.style.height=ch+'px';
   shell.dataset.o=land?'l':'p';shell.style.setProperty('--ctop',(cy+ch)+'px');
   bsPx=Math.round(Math.min(Math.max(Math.min(W,H)*.17,58),96)*(save.ctl?1.22:1));shell.style.setProperty('--bs',bsPx+'px');
   baseDef=land?{x:i.l+bsPx*1.35,y:H-i.b-bsPx*1.3}:{x:i.l+bsPx*1.45,y:H-i.b-bsPx*1.7};if(stickId===null)placeBase(baseDef.x,baseDef.y,false);
   const hn=document.getElementById('hint');if(hn){hn.style.left=Math.max(110,baseDef.x)+'px';hn.style.top=(baseDef.y-bsPx*.95)+'px';}
 }
-let wasPlaying=null,wasTut=false;
-function syncShell(){const p=state==='play'||state==='dead';if(p!==wasPlaying){wasPlaying=p;if(shell)shell.classList.toggle('playing',p);if(!p)releaseAll();}
+function lockLand(){if(!standalone)return;try{const o=screen.orientation;if(o&&o.lock){const q=o.lock('landscape');if(q&&q.catch)q.catch(()=>{});}}catch(e){}}
+let wakeLock=null;
+function wantWake(on){try{if(typeof navigator==='undefined'||!navigator.wakeLock)return;
+  if(on&&!wakeLock&&document.visibilityState!=='hidden'){navigator.wakeLock.request('screen').then(w=>{if(!(state==='play'||state==='dead')){w.release().catch(()=>{});return;}wakeLock=w;w.addEventListener('release',()=>{if(wakeLock===w)wakeLock=null;});}).catch(()=>{});}
+  else if(!on&&wakeLock){const w=wakeLock;wakeLock=null;w.release().catch(()=>{});}}catch(e){}}
+let installEv=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEv=e;});
+addEventListener('appinstalled',()=>{installEv=null;toast('Son Fener ana ekrana eklendi');});
+function doInstall(){const e=installEv;if(!e)return;installEv=null;try{const p=e.prompt();if(p&&p.catch)p.catch(()=>{});}catch(_){}}
+if(standalone&&typeof history!=='undefined'&&history.pushState)addEventListener('popstate',()=>{histArmed=false;if(state==='menu')return;pauseEdge=true;backEdge=true;try{history.pushState({sf:1},'');histArmed=true;}catch(e){}});
+let wasPlaying=null,wasTut=false,histArmed=false;
+function syncShell(){const p=state==='play'||state==='dead';if(p!==wasPlaying){wasPlaying=p;if(shell)shell.classList.toggle('playing',p);if(!p)releaseAll();wantWake(p);}
+  if(standalone&&!histArmed&&state!=='menu'&&typeof history!=='undefined'&&history.pushState){try{history.pushState({sf:1},'');histArmed=true;}catch(e){}}
   const tut=touchy&&!save.tut&&state==='play'&&mode==='story'&&lvl===0&&runT<900;
   if(touchy&&!save.tut&&mode==='story'&&lvl===0&&runT>=900){save.tut=1;persist();}
   if(tut!==wasTut){wasTut=tut;if(shell)shell.classList.toggle('tut',tut);}}
-cv.addEventListener('pointerdown',e=>{startDrone();const r=cv.getBoundingClientRect();if(!r.width)return;
+cv.addEventListener('pointerdown',e=>{startDrone();lockLand();const r=cv.getBoundingClientRect();if(!r.width)return;
   const x=(e.clientX-r.left)*VW/r.width,y=(e.clientY-r.top)*VH/r.height;
-  if(state==='play'){if(x>VW-100&&y<72)pauseEdge=true;return;}
+  if(state==='play'){if(x>VW-100-padR&&y<72)pauseEdge=true;return;}
   if(state==='dead')return;
   if(state==='choose'){choices.forEach((k,i)=>{const cx=cardX(i);if(x>cx-110&&x<cx+110&&y>165&&y<395){sel=i;jumpEdge=true;}});return;}
   if(state==='journal'){if(y>VH-70)backEdge=true;else menuNav=x<VW/2?-1:1;return;}
@@ -475,8 +501,9 @@ function menuDef(){
     if(save.run&&STORY[save.run.lvl])items.push([`Devam et  ${ROMAN[save.run.lvl]}. ${NAMES[save.run.lvl]}`,resumeRun]);
     items.push([save.run?'Yeni hikaye':'Hikaye',startPrologue],['Sonsuz Kaçış',()=>startEndless(false)],['Günün kaçışı',()=>startEndless(true)],
       ['Geçit seç',()=>{state='levels';menuSel=0;timer=6;}],['Koleksiyon',()=>{state='coll';menuSel=0;timer=6;}],['Ayarlar',()=>openSettings('menu')]);
+    if(installEv&&!standalone)items.push(['Uygulama olarak yükle',doInstall,'direct']);
     const db=dailyBest();
-    return{big:true,title:'Son Fener',sub:'Yağın azalıyor. Karanlık bekliyor.',y0:items.length>6?190:200,sp:items.length>6?32:35,items,
+    return{big:true,title:'Son Fener',sub:'Yağın azalıyor. Karanlık bekliyor.',y0:items.length>7?182:items.length>6?190:200,sp:items.length>7?29:items.length>6?32:35,items,
     info:[save.best?`En iyi hikaye: ${fmt(save.best.t)}, ${save.best.d} ölüm${save.best.diff!=null&&DIFFN[save.best.diff]?' ('+DIFFN[save.best.diff]+')':''}`:'',
       (save.bestEndless||db)?`En uzun kaçış ${save.bestEndless||0} m${db?', bugün '+db+' m':''}`:''].filter(Boolean)};}
   if(state==='coll'){const lockedN=Object.keys(LAMPS).filter(k=>!lampOk(k)).length;
@@ -685,7 +712,7 @@ function step(){
   if(mode==='endless'){const d=Math.floor(P.x/T);if(d>=300)unlock('runner');if(d>=1000)unlock('marathon');}
   if(state!=='play')return;
   if(P.x+P.w>L.exit*T+20){onClear();return;}
-  cam+=(Math.max(0,Math.min(P.x-VW*.4,L.w*T-VW))-cam)*.12;
+  cam+=(camTarget()-cam)*.12;
 }
 function updateParts(){for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.vy+=.08;p.vx*=.97;p.life--;}parts=parts.filter(p=>p.life>0);}
 
@@ -707,6 +734,8 @@ function drawBg(){
 function fog(off,y,col){ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(0,VH);for(let x=0;x<=VW;x+=10)ctx.lineTo(x,y+Math.sin((x+off+frame*.3)*.01)*14+Math.sin((x+off)*.023)*8);ctx.lineTo(VW,VH);ctx.fill();}
 function drawTiles(){
   const c0=Math.max(0,Math.floor(cam/T)-1),c1=Math.min(L.w-1,c0+Math.ceil(VW/T)+2);
+  if(cam<0){ctx.fillStyle='#14181C';ctx.fillRect(0,0,Math.ceil(-cam),VH);}
+  {const rx=Math.floor(L.w*T-cam);if(rx<VW){ctx.fillStyle='#14181C';ctx.fillRect(rx,0,VW-rx,VH);}}
   for(let r=0;r<ROWS;r++)for(let c=c0;c<=c1;c++){
     const raw=L.grid[r][c];if(!raw)continue;let x=Math.round(c*T-cam),y=r*T;
     if(raw===1){ctx.fillStyle='#14181C';ctx.fillRect(x,y,T,T);
@@ -851,7 +880,7 @@ function drawGhosts(){for(const g of ghosts){const x=g.x+9-cam,y=g.y;ctx.fillSty
 function drawMoths(){if(!P||state==='dead'||oil<15)return;const l=lanternPos();ctx.fillStyle='rgba(235,225,200,.8)';
   for(let i=0;i<3;i++){const a=frame*.05*(1+i*.3)+i*2.1,r=14+i*6+Math.sin(frame*.07+i)*4,x=l.x+Math.cos(a)*r,y=l.y-4+Math.sin(a*1.3)*r*.6,w=Math.abs(Math.sin(frame*.6+i))*2.5+.5;ctx.fillRect(x-w,y-.6,w*2,1.2);}}
 function drawForeground(){ctx.fillStyle='#020304';ctx.strokeStyle='#020304';ctx.lineWidth=3;ctx.lineCap='round';const o=cam*1.3;
-  for(let i=-1;i<10;i++){const sp=110,base=Math.floor(o/sp)+i,x=i*sp-(o%sp),h=10+(((base*53)%22)+22)%22,k=((base%5)+5)%5;
+  for(let i=-1;i<Math.ceil(VW/110)+1;i++){const sp=110,base=Math.floor(o/sp)+i,x=i*sp-(o%sp),h=10+(((base*53)%22)+22)%22,k=((base%5)+5)%5;
     ctx.beginPath();ctx.moveTo(x,VH);for(let j=0;j<6;j++){const gx=x+j*7+k;ctx.lineTo(gx+2,VH-h-(((j*13+base)%9)+9)%9+Math.sin(frame*.03+j+base)*2);ctx.lineTo(gx+5,VH);}ctx.fill();
     if(k===2){ctx.beginPath();ctx.moveTo(x+30,0);ctx.quadraticCurveTo(x+36+Math.sin(frame*.02+base)*4,22,x+30,40+(((base*7)%20)+20)%20);ctx.stroke();}}}
 function drawPrologue(){ctx.fillStyle='#030405';ctx.fillRect(0,0,VW,VH);ctx.textAlign='center';ctx.textBaseline='middle';
@@ -862,14 +891,14 @@ function drawPrologue(){ctx.fillStyle='#030405';ctx.fillRect(0,0,VW,VH);ctx.text
   if(prologueT>25){ctx.font=`italic 500 17px ${FONT}`;ctx.fillStyle='rgba(138,144,151,.7)';ctx.fillText(touchy?'Geçmek için dokun':'Geçmek için Boşluk’a bas',VW/2,VH-28);}}
 function drawHud(){
   ctx.textBaseline='middle';ctx.textAlign='left';
-  const x=24,y=30;ctx.strokeStyle='rgba(230,224,210,.6)';ctx.lineWidth=1.5;ctx.strokeRect(x,y-11,9,15);ctx.beginPath();ctx.moveTo(x+4.5,y-11);ctx.lineTo(x+4.5,y-16);ctx.stroke();
+  const x=24+padL,y=30;ctx.strokeStyle='rgba(230,224,210,.6)';ctx.lineWidth=1.5;ctx.strokeRect(x,y-11,9,15);ctx.beginPath();ctx.moveTo(x+4.5,y-11);ctx.lineTo(x+4.5,y-16);ctx.stroke();
   ctx.fillStyle=oil<25?(frame%30<15?'#C2263B':'#F2A541'):'#F2A541';ctx.fillRect(x+2.5,y-7,4,8);
   ctx.strokeStyle='rgba(230,224,210,.35)';ctx.strokeRect(x+18,y-4,140,6);ctx.fillRect(x+18,y-4,140*oil/100,6);
   ctx.font=`600 20px ${FONT}`;ctx.fillStyle='rgba(230,224,210,.75)';
   if(mode==='endless'){const d=Math.max(0,Math.floor((P?P.x:0)/T));ctx.fillText(`${d} m     En iyi ${isDaily?dailyBest():(save.bestEndless||0)} m`,x+176,y);}
   else ctx.fillText(`Ölüm ${deaths}     Ruh ${soulsGot}/${TOTAL_SOULS}`,x+176,y);
-  ctx.textAlign='right';ctx.fillText(mode==='endless'?fmt(runT):`${fmt(runT)}     ${ROMAN[lvl]||''}`,VW-60,y);
-  ctx.fillStyle='rgba(230,224,210,.55)';ctx.fillRect(VW-38,y-8,4,16);ctx.fillRect(VW-29,y-8,4,16);
+  ctx.textAlign='right';ctx.fillText(mode==='endless'?fmt(runT):`${fmt(runT)}     ${ROMAN[lvl]||''}`,VW-60-padR,y);
+  ctx.fillStyle='rgba(230,224,210,.55)';ctx.fillRect(VW-38-padR,y-8,4,16);ctx.fillRect(VW-29-padR,y-8,4,16);
   const owned=Object.keys(UPG).filter(k=>up[k]);
   if(owned.length){ctx.textAlign='left';ctx.font=`italic 500 15px ${FONT}`;ctx.fillStyle='rgba(242,165,65,.6)';ctx.fillText(owned.map(k=>UPG[k][0]).join('   '),x,y+24);}
 }
@@ -927,8 +956,8 @@ function drawStats(){ctx.fillStyle='rgba(3,4,6,.9)';ctx.fillRect(0,0,VW,VH);ctx.
   ctx.fillStyle='#E6E0D2';ctx.font=`600 44px ${FONT}`;ctx.fillText('İstatistikler',VW/2,56);const st=save.stats,na=Object.keys(ACH).filter(k=>save.ach[k]).length;
   const rows=[['Toplam oyun süresi',fmt(st.time||0)],['Ölüm',st.deaths||0],['Ezilen sürüngen',st.stomps||0],['Dağıtılan hayalet',st.wraiths||0],['Parlatma',st.flares||0],['Atılma',st.dashes||0],
     ['Okunan yazıt',`${readCount()}/${NOTE_TOTAL}`],['Açılan başarım',`${na}/${Object.keys(ACH).length}`],['En uzun kaçış',`${save.bestEndless||0} m`],['En iyi hikaye',save.best?fmt(save.best.t):'Henüz yok']];
-  rows.forEach(([k,v],i)=>{const y=108+i*31;ctx.font=`italic 500 20px ${FONT}`;ctx.fillStyle='#9AA2A8';ctx.textAlign='left';ctx.fillText(k,210,y);
-    ctx.font=`600 21px ${FONT}`;ctx.fillStyle='#E6E0D2';ctx.textAlign='right';ctx.fillText(String(v),590,y);});
+  rows.forEach(([k,v],i)=>{const y=108+i*31;ctx.font=`italic 500 20px ${FONT}`;ctx.fillStyle='#9AA2A8';ctx.textAlign='left';ctx.fillText(k,VW/2-190,y);
+    ctx.font=`600 21px ${FONT}`;ctx.fillStyle='#E6E0D2';ctx.textAlign='right';ctx.fillText(String(v),VW/2+190,y);});
   ctx.textAlign='center';cta(touchy?'Geri dönmek için dokun':'Geri dönmek için Boşluk’a bas',VH-26);}
 function drawJournal(){ctx.fillStyle='rgba(3,4,6,.9)';ctx.fillRect(0,0,VW,VH);ctx.textAlign='center';ctx.textBaseline='middle';
   const hidden=(jPage===5&&!save.secret)||(jPage===6&&!save.dawn),list=NOTE_LIST[jPage]||[];
@@ -941,7 +970,7 @@ function drawJournal(){ctx.fillStyle='rgba(3,4,6,.9)';ctx.fillRect(0,0,VW,VH);ct
   cta(touchy?'Kenarlara dokunarak sayfa çevir, buraya dokunarak dön':'← → ile sayfa çevir, Boşluk ile dön',VH-26);}
 function drawAchv(){ctx.fillStyle='rgba(3,4,6,.86)';ctx.fillRect(0,0,VW,VH);ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.fillStyle='#E6E0D2';ctx.font=`600 44px ${FONT}`;ctx.fillText('Başarımlar',VW/2,50);
-  Object.keys(ACH).forEach((id,i)=>{const col=i%2,row=Math.floor(i/2),x=col?590:210,y=104+row*48,on=!!save.ach[id];
+  Object.keys(ACH).forEach((id,i)=>{const col=i%2,row=Math.floor(i/2),x=col?VW/2+190:VW/2-190,y=104+row*48,on=!!save.ach[id];
     ctx.font=`600 20px ${FONT}`;ctx.fillStyle=on?'#F2A541':'rgba(230,224,210,.35)';ctx.fillText(ACH[id][0],x,y);
     ctx.font=`italic 500 15px ${FONT}`;ctx.fillStyle=on?'#B8BEC2':'rgba(184,190,194,.35)';ctx.fillText(on?ACH[id][1]:'Henüz açılmadı. '+ACH[id][1],x,y+19);});
   cta(touchy?'Geri dönmek için dokun':'Geri dönmek için Boşluk’a bas',VH-26);}
@@ -961,9 +990,9 @@ function drawWin(){
 }
 function drawToasts(){const t=toasts[0];if(!t)return;const a=Math.max(0,Math.min(1,t.life/30,((t.text?170:220)-t.life)/20));
   ctx.textAlign='right';ctx.textBaseline='middle';
-  if(t.text){ctx.font=`600 21px ${FONT}`;ctx.fillStyle=`rgba(242,165,65,${a})`;ctx.fillText(t.text,VW-24,(state==='play'?92:36));return;}
-  ctx.font=`italic 500 16px ${FONT}`;ctx.fillStyle=`rgba(154,162,168,${a})`;ctx.fillText('Başarım açıldı',VW-24,(state==='play'?82:30));
-  ctx.font=`600 22px ${FONT}`;ctx.fillStyle=`rgba(242,165,65,${a})`;ctx.fillText(ACH[t.id][0],VW-24,(state==='play'?104:52));}
+  if(t.text){ctx.font=`600 21px ${FONT}`;ctx.fillStyle=`rgba(242,165,65,${a})`;ctx.fillText(t.text,VW-24-padR,(state==='play'?92:36));return;}
+  ctx.font=`italic 500 16px ${FONT}`;ctx.fillStyle=`rgba(154,162,168,${a})`;ctx.fillText('Başarım açıldı',VW-24-padR,(state==='play'?82:30));
+  ctx.font=`600 22px ${FONT}`;ctx.fillStyle=`rgba(242,165,65,${a})`;ctx.fillText(ACH[t.id][0],VW-24-padR,(state==='play'?104:52));}
 function draw(){
   const sk=shake*(RM||!save.shk?.25:1);
   ctx.save();ctx.translate((Math.random()-.5)*sk,(Math.random()-.5)*sk);
@@ -994,6 +1023,8 @@ function draw(){
 
 /* ---------- Döngü ---------- */
 resize();layout();
+if(typeof navigator!=='undefined'&&'serviceWorker' in navigator&&typeof location!=='undefined'&&location.protocol==='https:'&&/(^|\.)github\.io$/.test(location.hostname)){
+  addEventListener('load',()=>{try{navigator.serviceWorker.register('sw.js').catch(()=>{});}catch(e){}});}
 addEventListener('resize',()=>{resize();layout();});
 addEventListener('orientationchange',()=>setTimeout(layout,250));
 if(window.visualViewport)window.visualViewport.addEventListener('resize',layout);

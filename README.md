@@ -2,7 +2,14 @@
 
 Elinde sönmekte olan bir fenerle karanlık bir ormanda yolunu bulmaya çalıştığın, atmosferik bir platform oyunu. Tarayıcıda çalışır; bilgisayarda klavye ya da oyun koluyla, telefonda dokunmatik kontrollerle oynanır.
 
-**[Oyna](https://KULLANICIADIN.github.io/son-fener/)**
+**[Oyna](https://erdemgursoy07.github.io/son-fener/)**
+
+## Telefona uygulama olarak yükle
+
+Oyunu ana ekrana eklersen adres çubuğu olmadan, tam ekran ve yatay olarak açılır; internet olmadan da oynanır.
+
+- **Android (Chrome):** Oyunun ana menüsündeki *Uygulama olarak yükle* seçeneğine dokun ya da tarayıcı menüsünden *Uygulamayı yükle* / *Ana ekrana ekle*'yi seç.
+- **iPhone (Safari):** Paylaş düğmesine, ardından *Ana Ekrana Ekle*'ye dokun.
 
 ## Hikaye
 
@@ -35,4 +42,4 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 
 ## Teknik
 
-Tek bir `index.html` dosyasından oluşur; kurulum veya derleme gerektirmez. Kayıtlar tarayıcının yerel depolamasında tutulur.
+Oyunun tamamı tek bir `index.html` dosyasındadır; derleme gerektirmez. `manifest.webmanifest` ve `sw.js` oyunun uygulama olarak yüklenmesini ve çevrimdışı çalışmasını sağlar. Kayıtlar tarayıcının yerel depolamasında tutulur.
