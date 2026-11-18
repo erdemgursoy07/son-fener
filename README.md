@@ -23,20 +23,25 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 | Zıpla | Boşluk, ↑ veya W | Zıpla düğmesi |
 | Atıl | C veya Shift | Atıl düğmesi |
 | Feneri parlat | X veya F | Parlat düğmesi |
+| Feneri bırak / al | E veya Q | Bırak / Al düğmesi |
 | Duraklat | Esc veya P | Sağ üst köşeye dokun |
 | Sesi kapat | M | Ayarlar menüsü |
 
 ## Özellikler
 
 - Yedi geçitlik hikaye: Ölü Orman, Fırtına Köprüsü, Derinlik, Kaçış, Kuyu Gözü boss savaşı, gizli Ruhların Yolu ve Şafak
-- İkinci bölüm, Donmuş Göl: kaygan buz, fenerle eritilen buz duvarları, düşen sarkıtlar ve kar fırtınası
+- İkinci bölüm, Donmuş Göl: kaygan buz, fenerle eritilen buz duvarları, düşen sarkıtlar, kar fırtınası ve Buz Kalbi boss savaşı
+- Gizli sandıklar ve açılabilir pelerinler, fener hırsızları, bölümler arası hikaye ara sahneleri
+- Dünya haritası, Karanlık Ay (Yeni Oyun+) ve yavaş zaman / ölümsüzlük seçenekli yardım modu
+- Her bölgeye özel bestelenmiş müzik ve ortam sesleri
 - Fenerin ışığıyla çevrili dinamik karanlık, şimşekler, yağmur ve rüzgâr
 - Sürünenler, tavandan sarkanlar, duvarlardan geçen hayaletler ve peşinden gelen karanlık
 - Atılma, çift zıplama, hareketli platformlar, mangal ve kapı bulmacaları
+- Feneri yere bırakma: ışığı bir yerde bırakıp karanlıkta yürü, yalnızca karanlıkta beliren gölge köprülerini kullan
 - Her geçit sonunda seçilen fener yükseltmeleri
 - Sekiz saklı ruh ve farklı sonlar
 - Sonsuz Kaçış ve herkesin aynı yolu koştuğu Günün Kaçışı
-- 15 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
+- 18 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
 - Kendiliğinden çalan müzik ve ses efektleri
 - Otomatik kayıt: kaldığın yerden devam edebilirsin
 - Üç zorluk seviyesi ve ayarlanabilir ışık seviyesi
