@@ -19,7 +19,7 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 
 | Eylem | Klavye | Telefon |
 |---|---|---|
-| Yürü | ← → veya A D | Ekranın sol yarısında parmağını kaydır |
+| Yürü | ← → veya A D | Sol alttaki ◀ ▶ tuşları |
 | Zıpla | Boşluk, ↑ veya W | Zıpla düğmesi |
 | Atıl | C veya Shift | Atıl düğmesi |
 | Feneri parlat | X veya F | Parlat düğmesi |
