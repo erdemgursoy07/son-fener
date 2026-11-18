@@ -29,13 +29,14 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 ## Özellikler
 
 - Yedi geçitlik hikaye: Ölü Orman, Fırtına Köprüsü, Derinlik, Kaçış, Kuyu Gözü boss savaşı, gizli Ruhların Yolu ve Şafak
+- İkinci bölüm, Donmuş Göl: kaygan buz, fenerle eritilen buz duvarları, düşen sarkıtlar ve kar fırtınası
 - Fenerin ışığıyla çevrili dinamik karanlık, şimşekler, yağmur ve rüzgâr
 - Sürünenler, tavandan sarkanlar, duvarlardan geçen hayaletler ve peşinden gelen karanlık
 - Atılma, çift zıplama, hareketli platformlar, mangal ve kapı bulmacaları
 - Her geçit sonunda seçilen fener yükseltmeleri
 - Sekiz saklı ruh ve farklı sonlar
 - Sonsuz Kaçış ve herkesin aynı yolu koştuğu Günün Kaçışı
-- 14 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
+- 15 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
 - Kendiliğinden çalan müzik ve ses efektleri
 - Otomatik kayıt: kaldığın yerden devam edebilirsin
 - Üç zorluk seviyesi ve ayarlanabilir ışık seviyesi
