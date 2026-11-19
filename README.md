@@ -33,6 +33,7 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 - Sinematik açılış: yüz fenerin tek tek söndüğü ve senin fenerinin yandığı bir giriş
 - Son yüzleşme: Kızıl Fener’de iki saniye önceki hareketlerini tekrarlayan Gölge Yolcu
 - Son seçim ve iki farklı son
+- Senin yolculuğun jeneriği, jenerik sonrası sahne ve seçimini hatırlayan bir oyun
 - Türkçe ve İngilizce dil desteği (Ayarlar → Dil)
 - Fener Atölyesi: topladığın korlarla kalıcı yükseltmeler
 - Fenerin ışığıyla düşen gerçek gölgeler (Ayarlar → Gölgeler)
