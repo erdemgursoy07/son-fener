@@ -1,20 +1,40 @@
 {
-  "name": "Son Fener",
-  "short_name": "Son Fener",
-  "description": "Karanlık bir ormanda, sönmekte olan bir fenerle yolunu bulmaya çalıştığın atmosferik platform oyunu.",
+  "name": "Lastwick",
+  "short_name": "Lastwick",
+  "description": "Karanlık bir ormanda son fenerle yolculuk. A journey through the dark with the last lantern.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
-  "display_override": ["fullscreen", "standalone"],
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
   "orientation": "landscape",
   "background_color": "#0B0D10",
   "theme_color": "#0B0D10",
   "lang": "tr",
-  "categories": ["games"],
+  "categories": [
+    "games"
+  ],
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

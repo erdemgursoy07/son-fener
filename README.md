@@ -1,4 +1,6 @@
-# Son Fener
+# Lastwick
+
+*(eski adıyla Son Fener)*
 
 Elinde sönmekte olan bir fenerle karanlık bir ormanda yolunu bulmaya çalıştığın, atmosferik bir platform oyunu. Tarayıcıda çalışır; bilgisayarda klavye ya da oyun koluyla, telefonda dokunmatik kontrollerle oynanır.
 
