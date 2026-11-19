@@ -29,7 +29,13 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 
 ## Özellikler
 
-- Yedi geçitlik hikaye: Ölü Orman, Fırtına Köprüsü, Derinlik, Kaçış, Kuyu Gözü boss savaşı, gizli Ruhların Yolu ve Şafak
+- İki bölüm, 10’ar geçit: Bölüm I ormanda Kuyu Gözü’ne, Bölüm II donmuş gölde Buz Kalbi’ne uzanır; ayrıca gizli Ruhların Yolu ve Şafak
+- Türkçe ve İngilizce dil desteği (Ayarlar → Dil)
+- Fener Atölyesi: topladığın korlarla kalıcı yükseltmeler
+- Fenerin ışığıyla düşen gerçek gölgeler (Ayarlar → Gölgeler)
+- Aynı yerde ölünce biriken kül izleri ve takıldığında ipucu veren bekçi ruhu
+- Örümcek Ana, Kar Kurdu, Kuyu Gözü ve Buz Kalbi boss savaşları
+- Yol boyunca konuşan bekçi ruhu, geçit sonu fener puanları ve ölüm sebebine özel ölüm anı
 - İkinci bölüm, Donmuş Göl: kaygan buz, fenerle eritilen buz duvarları, düşen sarkıtlar, kar fırtınası ve Buz Kalbi boss savaşı
 - Gizli sandıklar ve açılabilir pelerinler, fener hırsızları, bölümler arası hikaye ara sahneleri
 - Dünya haritası, Karanlık Ay (Yeni Oyun+) ve yavaş zaman / ölümsüzlük seçenekli yardım modu
@@ -41,7 +47,7 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 - Her geçit sonunda seçilen fener yükseltmeleri
 - Sekiz saklı ruh ve farklı sonlar
 - Sonsuz Kaçış ve herkesin aynı yolu koştuğu Günün Kaçışı
-- 18 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
+- 19 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
 - Kendiliğinden çalan müzik ve ses efektleri
 - Otomatik kayıt: kaldığın yerden devam edebilirsin
 - Üç zorluk seviyesi ve ayarlanabilir ışık seviyesi
