@@ -30,6 +30,9 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 ## Özellikler
 
 - İki bölüm, 10’ar geçit: Bölüm I ormanda Kuyu Gözü’ne, Bölüm II donmuş gölde Buz Kalbi’ne uzanır; ayrıca gizli Ruhların Yolu ve Şafak
+- Sinematik açılış: yüz fenerin tek tek söndüğü ve senin fenerinin yandığı bir giriş
+- Son yüzleşme: Kızıl Fener’de iki saniye önceki hareketlerini tekrarlayan Gölge Yolcu
+- Son seçim ve iki farklı son
 - Türkçe ve İngilizce dil desteği (Ayarlar → Dil)
 - Fener Atölyesi: topladığın korlarla kalıcı yükseltmeler
 - Fenerin ışığıyla düşen gerçek gölgeler (Ayarlar → Gölgeler)
@@ -47,7 +50,7 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 - Her geçit sonunda seçilen fener yükseltmeleri
 - Sekiz saklı ruh ve farklı sonlar
 - Sonsuz Kaçış ve herkesin aynı yolu koştuğu Günün Kaçışı
-- 19 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
+- 22 başarım, yazıt günlüğü, istatistikler ve açılabilir fener renkleri
 - Kendiliğinden çalan müzik ve ses efektleri
 - Otomatik kayıt: kaldığın yerden devam edebilirsin
 - Üç zorluk seviyesi ve ayarlanabilir ışık seviyesi
