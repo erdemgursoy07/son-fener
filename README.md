@@ -29,7 +29,7 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 
 ## Özellikler
 
-- İki bölüm, 10’ar geçit: Bölüm I ormanda Kuyu Gözü’ne, Bölüm II donmuş gölde Buz Kalbi’ne uzanır; ayrıca gizli Ruhların Yolu ve Şafak
+- Üç bölüm, 10’ar geçit: Bölüm I ormanda Kuyu Gözü’ne, Bölüm II donmuş gölde Buz Kalbi’ne, Bölüm III Kızıl Kuzey’de İlk Alev’e uzanır; ayrıca gizli Ruhların Yolu, Şafak ve Kızıl Fener
 - Sinematik açılış: yüz fenerin tek tek söndüğü ve senin fenerinin yandığı bir giriş
 - Son yüzleşme: Kızıl Fener’de iki saniye önceki hareketlerini tekrarlayan Gölge Yolcu
 - Son seçim ve iki farklı son
@@ -38,6 +38,7 @@ Bir zamanlar bu ormanda yüz fener yanardı. Sonra karanlık geldi ve hepsini te
 - Fener Atölyesi: topladığın korlarla kalıcı yükseltmeler
 - Fenerin ışığıyla düşen gerçek gölgeler (Ayarlar → Gölgeler)
 - Aynı yerde ölünce biriken kül izleri ve takıldığında ipucu veren bekçi ruhu
+- Kızıl gözcüler, kül pınarları, kor nehirleri, Kül Devi ve İlk Alev
 - Örümcek Ana, Kar Kurdu, Kuyu Gözü ve Buz Kalbi boss savaşları
 - Yol boyunca konuşan bekçi ruhu, geçit sonu fener puanları ve ölüm sebebine özel ölüm anı
 - İkinci bölüm, Donmuş Göl: kaygan buz, fenerle eritilen buz duvarları, düşen sarkıtlar, kar fırtınası ve Buz Kalbi boss savaşı
