@@ -1,5 +1,5 @@
 // Lastwick: çevrimdışı çalışma için önbellek
-const CACHE = 'son-fener-v26';
+const CACHE = 'son-fener-v28';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png'];
 
 self.addEventListener('install', e => {
